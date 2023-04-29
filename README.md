@@ -24,3 +24,15 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   ```
 
 ## 2. Installatie van de applicaties
+
+### DebianVM
+
+- Voer de volgende commando's uit in de terminal van de Debian VM:
+
+  ```bash
+  wget https://jobbe.be/DebianVM_Installation.sh
+  chmod +x DebianVM_Installation.sh
+  ./DebianVM_Installation.sh
+  ```
+
+### KaliVM
