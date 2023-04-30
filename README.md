@@ -12,10 +12,10 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   - [Debian 11 - Desktop](https://sourceforge.net/projects/osboxes/files/v/vb/14-D-b/11/Workstation/64bit.7z/download)
 
 - Unzip de vdi-bestanden rechtstreeks in de download folder de huidige gebruiker
-- Hernoem de vdi-bestanden naar:
+- Check of de vdi-bestanden de volgende namen hebben:
 
-  - Kali Linux 2022.3.vdi => KaliVM.vdi
-  - Debian 11 - Desktop.vdi => DebianVM.vdi
+  - Debian 11 (64bit).vdi
+  - Kali Linux 2022.3 (64bit).vdi
 
 - Voer de volgende commando's uit in powerhshell van de host machine:
 
