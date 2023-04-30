@@ -1,0 +1,49 @@
+https://computingforgeeks.com/install-and-configure-drupal-cms-on-debian/
+
+    2  sudo apt update
+
+    3  echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
+
+    4  curl -fsSL  https://packages.sury.org/php/apt.gpg| sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/sury-keyring.gpg
+
+    5  sudo apt install vim wget curl apache2 mariadb-server mariadb-client
+
+    6  sudo apt install php libapache2-mod-php php-{fpm,cli,mysql,zip,gd,intl,mbstring,curl,xml,soap,tidy,bcmath,xmlrpc} 
+
+    7  sudo a2enmod rewrite
+
+    8  sudo systemctl restart apache2
+
+    9  sudo systemctl enable --now mariadb
+
+   10  sudo mysql_secure_installation
+
+   11  sudo mysql_secure_installation
+
+   12  sudo mysql -u root -p
+
+   13  DRUPAL_VERSION=""
+
+   14  DRUPAL_VERSION="7.57"
+
+   15  wget https://ftp.drupal.org/files/projects/drupal-${DRUPAL_VERSION}.tar.gz
+
+   16  tar xvf drupal-${DRUPAL_VERSION}.tar.gz
+
+   17  sudo mv drupal-${DRUPAL_VERSION} /var/www/html/drupal
+
+   18  sudo chown -R www-data:www-data  /var/www/html/drupal
+
+   19  sudo a2dissite 000-default.conf
+
+   20  sudo systemctl restart apache
+
+   21  sudo nano /etc/apache2/sites-available/drupal.conf
+
+   22  sudo ln -s /etc/apache2/sites-available/drupal.conf /etc/apache2/sites-enabled/drupal.conf
+
+   23  sudo systemctl restart apache2
+
+   24  sudo mv /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf.bak
+
+   25  sudo systemctl restart apache2
