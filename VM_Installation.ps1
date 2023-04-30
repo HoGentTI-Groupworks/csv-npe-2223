@@ -6,18 +6,15 @@ if ($null -eq (get-command VBoxManage.exe -errorAction silentlyContinue)) {
 }
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
 
-function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nofCPUs, [string] $gpc, [int] $vramMb) {
+function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nofCPUs, [string] $gpc, [int] $vramMb, [string] $vdiName) {
     # Variables
-    $vdiPath = "C:\Users\$($env:UserName)\VirtualBox VMs\$vmName\$vmName.vdi"
+    $vmPath="C:\Users\$($env:UserName)\VirtualBox VMs\$vmName"
+    $vdiPath = "C:\Users\$($env:UserName)\Downloads\$vdiName"
 
     # Start creating the VM
     Write-Host "=============="
     Write-Host "CREATE $($vmName.ToUpper())"
     Write-Host "=============="
-    $vmPath="C:\Users\$($env:UserName)\VirtualBox VMs\$vmName"
-
-    # Move dvi file to VirtualBox VMs folder
-    Move-Item "C:\Users\$($env:UserName)\Downloads\$vmName.vdi" $vdiPath -Force
 
     # Create the VM
     VBoxManage createvm --name $vmName --ostype $osType --register
@@ -29,6 +26,10 @@ function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nof
     # Add SATA controller and attach hard disk to it
     VBoxManage storagectl    $vmName --name       'SATA Controller' --add sata --controller IntelAhci
     VBoxManage storageattach $vmName --storagectl 'SATA Controller' --port 0 --device 0 --type hdd --medium  $vdiPath
+
+    # Add IDE controller and attach DVD drive to it
+    VBoxManage storagectl    $vmName --name       'IDE Controller' --add ide
+    VBoxManage storageattach $vmName --storagectl 'IDE Controller' --port 0 --device 0 --type dvddrive --medium emptydrive
 
     # Enable APIC
     VBoxManage modifyvm $vmName --ioapic on
@@ -64,25 +65,26 @@ function New-DebianVm {
     $nofCPUs = 2
     $gpc = "vboxsvga"
     $vramMb = 128
+    $vdiName = "Debian 11 (64bit).vdi"
 
     # Create the VM
-    New-VM -vmName $vmName -osType $osType -memSizeMb $memSizeMb -nofCPUs $nofCPUs -gpc $gpc -vramMb $vramMb
+    New-VM -vmName $vmName -osType $osType -memSizeMb $memSizeMb -nofCPUs $nofCPUs -gpc $gpc -vramMb $vramMb -vdiName $vdiName
 }
 
 function New-KaliVM {
     # Variables
     $vmName = "KaliVM"
-    $osType = "Linux"
+    $osType = "Linux_64"
     $memSizeMb = 4096
     $nofCPUs = 2
     $gpc = "vboxsvga"
     $vramMb = 128
+    $vdiName = "Kali Linux 2022.3 (64bit).vdi"
 
     # Create the VM
-    New-VM -vmName $vmName -osType $osType -memSizeMb $memSizeMb -nofCPUs $nofCPUs -gpc $gpc -vramMb $vramMb
+    New-VM -vmName $vmName -osType $osType -memSizeMb $memSizeMb -nofCPUs $nofCPUs -gpc $gpc -vramMb $vramMb -vdiName $vdiName
 }
 
-# Main function
 function Main {
     New-DebianVm
     New-KaliVM
