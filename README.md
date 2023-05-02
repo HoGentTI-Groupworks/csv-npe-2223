@@ -36,3 +36,9 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   ```
 
 ### KaliVM
+
+## 3. Instrucies voor de exploit
+
+### DebianVM
+
+### KaliVM
