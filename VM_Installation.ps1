@@ -27,6 +27,12 @@ function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nof
     VBoxManage storagectl    $vmName --name       'SATA Controller' --add sata --controller IntelAhci
     VBoxManage storageattach $vmName --storagectl 'SATA Controller' --port 0 --device 0 --type hdd --medium  $vdiPath
 
+    VBoxManage createvm --name $vmName --ostype $osType --register
+    if (! (test-path $vdiPath\$vmName.vdi)) {
+      Write-Host "I expected a .vdi"
+      Exit 0
+    }
+
     # Add IDE controller and attach DVD drive to it
     VBoxManage storagectl    $vmName --name       'IDE Controller' --add ide
     VBoxManage storageattach $vmName --storagectl 'IDE Controller' --port 0 --device 0 --type dvddrive --medium emptydrive
