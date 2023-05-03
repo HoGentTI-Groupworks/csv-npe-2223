@@ -103,7 +103,13 @@ install_drupal() {
     mkdir $web_dir/sites/default/files &&
     chmod 777 $web_dir/sites/default/files
 }
-
+downloadModules() {
+    cd $web_dir"/modules"
+    wget https://ftp.drupal.org/files/projects/restful-7.x-2.17.tar.gz
+    wget https://ftp.drupal.org/files/projects/entity-7.x-1.10.tar.gz
+    tar -xf restful-7.x-2.17.tar.gz
+    tar -xf entity-7.x-1.10.tar.gz
+}
 echo "SUCCESS: RUN $date " >> $log_file
 
 if [ "$EUID" -ne 0 ]
