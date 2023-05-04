@@ -28,7 +28,7 @@ Het zal vragen welke versie we willen installeren, we kiezen eerst voor debian b
 
 ```bash
     wget https://dev.mysql.com/get/mysql-apt-config_0.8.18-1_all.deb &&
-    sudo dpkg -i mysql-apt-config_0.8.18-1_all.deb &&
+    sudo dpkg -i mysql-apt-config_0.8.18-1_all.deb 
 ```
 
 - we kunnen eindelijk onze script downloaden en runnen.

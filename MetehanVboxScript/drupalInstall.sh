@@ -105,10 +105,10 @@ install_drupal() {
 }
 downloadModules() {
     cd $web_dir"/modules"
-    wget https://ftp.drupal.org/files/projects/restful-7.x-2.17.tar.gz
-    wget https://ftp.drupal.org/files/projects/entity-7.x-1.10.tar.gz
-    tar -xf restful-7.x-2.17.tar.gz
-    tar -xf entity-7.x-1.10.tar.gz
+    sudo wget https://ftp.drupal.org/files/projects/restful-7.x-2.17.tar.gz
+    sudo wget https://ftp.drupal.org/files/projects/entity-7.x-1.10.tar.gz
+    sudo tar -xf restful-7.x-2.17.tar.gz
+    sudo tar -xf entity-7.x-1.10.tar.gz
 }
 echo "SUCCESS: RUN $date " >> $log_file
 
@@ -137,6 +137,10 @@ config_mysql >> $log_file 2>&1
 check_output $? "CONFIGURING SECURE MYSQL SETUP"
 sudo sed -i "s/$mysql_pass/PasswordNotStoredInLogfile/g" $log_file
 sudo sed -i "s/$drupal_sql_pass/PasswordNotStoredInLogfile/g" $log_file
+echo
+echo "Downloading Drupal API Modules..."
+downloadModules >> $log_file 2>&1
+check_output $? "Downloaded DRUPAL API MODULES"
 echo
 echo "Installing Drupal 7.54..."
 install_drupal >> $log_file 2>&1
