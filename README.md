@@ -52,7 +52,7 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   ```bash
     wget https://jobbe.be/csv-npe-2223/drupal-install.sh
     chmod +x drupal-install.sh
-    ./drupal-install.sh
+    sudo sh drupal-install.sh
   ```
 
 - Kies in de prompt voor debian buster (10) en mysql-5.7 als versie van mysql
