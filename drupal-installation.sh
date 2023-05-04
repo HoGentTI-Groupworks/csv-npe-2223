@@ -27,11 +27,6 @@ check_output () {
 
 install_reqs () {
     sudo apt-get update
-    sudo apt install wget
-
-    sudo wget https://dev.mysql.com/get/mysql-apt-config_0.8.18-1_all.deb
-    sudo dpkg -i mysql-apt-config_0.8.18-1_all.deb
-
     sudo wget https://pastebin.com/raw/yBxPcvjM -O /home/osboxes/mysql_pubkey.asc &&
     gpg --dearmor mysql_pubkey.asc &&
     sudo cp mysql_pubkey.asc.gpg /etc/apt/trusted.gpg.d/ &&
