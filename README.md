@@ -58,7 +58,7 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
 ##TODO: rest modules downloaden
 
 - Kies in de prompt voor debian buster (10) en mysql-5.7 als versie van mysql
-- Na de installatie is drupal beschikbaar op `http://localhost:8080`
+- Na de installatie is drupal beschikbaar op `http://localhost:index.php`
 - Configureer Drupal met de volgende gegevens:
 
   - Database name: `drupal`
