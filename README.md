@@ -47,13 +47,15 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   - Username: `osboxes`
   - Password: `osboxes.org`
 
-- Download en run het installatie script:
+- Installeer de mysql repository en selecteer in de prompt `debian buster` en en `mysql-5.7` als versie van mysql:
 
   ```bash
-    wget https://jobbe.be/csv-npe-2223/drupal-install.sh
-    chmod +x drupal-install.sh
-    sudo sh drupal-install.sh
+    #sudo apt-get install lsb-release gnupg
+    wget https://dev.mysql.com/get/mysql-apt-config_0.8.18-1_all.deb
+    sudo dpkg -i mysql-apt-config_0.8.18-1_all.deb
   ```
+
+##TODO: rest modules downloaden
 
 - Kies in de prompt voor debian buster (10) en mysql-5.7 als versie van mysql
 - Na de installatie is drupal beschikbaar op `http://localhost:8080`
@@ -74,6 +76,11 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   - Default timezone: `Europe/Brussels`
 
 - Activeer de module `RESTful Web Services` in de `Extend` pagina van Drupal
+- Verwijder de standaard web pagina in /var/www/html:
+
+  ```bash
+    sudo rm -rf /var/www/html/index.html
+  ```
 
 ## 3. Metesploit
 
