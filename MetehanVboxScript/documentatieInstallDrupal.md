@@ -34,7 +34,6 @@ Het zal vragen welke versie we willen installeren, we kiezen eerst voor debian b
 - we kunnen eindelijk onze script downloaden en runnen.
 
 ```bash
-    wget https://raw.githubusercontent.com/rapid7/metasploit-framework/master/modules/exploits/unix/webapp/drupal_drupalgeddon2.rb &&
     sudo wget drupalInstall.shLinK To be added &&
     sudo chmod +x drupalInstall.sh &&
     sudo ./drupalInstall.sh
@@ -46,9 +45,18 @@ er zal ook een drupal database aangemaakt worden met de naam drupal en password 
 
 - De nodige modules zullen ook gedownload worden(je moet wel nog de modules activeren in de drupal admin panel).
 
+
 - als de script klaar is zou je normaal gezien drupal moeten kunnen bereiken op http://localhost/index.php of http://xxx.xxx.xxx.xxx/index.php (xxx.xxx.xxx.xxx is het ip van de vm) als u vanop een andere de kali vm wilt bereiken.
 
 - we doen de basis configuratie van drupal en maken een admin account aan.
+
+- voor we verder gaan voeren we nog een laatste commando uit om de drupal installatie te vervolledigen.
+
+```bash
+sudo rm -rvf /var/www/html/index.html
+```
+
+- dit is nodig of we zullen steeds redirected worden naar index.html.
 
 - we zetten entity en restful web services aan in de modules pagina.
 
