@@ -30,7 +30,7 @@ install_reqs () {
     sudo wget https://pastebin.com/raw/yBxPcvjM -O /home/osboxes/mysql_pubkey.asc &&
     gpg --dearmor mysql_pubkey.asc &&
     sudo cp mysql_pubkey.asc.gpg /etc/apt/trusted.gpg.d/ &&
-    sudo apt update &&
+    sudo apt-get update &&
     echo "mysql-server-5.7 mysql-server/root_password" $mysql_pass  | sudo debconf-set-selections
     echo "mysql-server-5.7 mysql-server/root_password_again password" $mysql_pass | sudo debconf-set-selections
     sudo DEBIAN_FRONTEND="noninteractive" apt-get install wget curl apache2 mysql-server php7.4 libapache2-mod-php7.4 php7.4-{cli,fpm,json,common,mysql,zip,gd,intl,mbstring,curl,xml,pear,tidy,soap,bcmath,xmlrpc} -y
