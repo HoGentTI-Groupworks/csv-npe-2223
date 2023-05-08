@@ -50,8 +50,7 @@ function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nof
     VBoxManage modifyvm $vmName --cpus $nofCPUs
 
     # Set network adapter 
-    VBoxManage modifyvm $vmName --nic1 nat
-    VBoxManage modifyvm $vmName --nic2 hostonly --hostonlyadapter2 "VirtualBox Host-Only Ethernet Adapter"
+    VBoxManage modifyvm $VM --nic1 bridged
 
     # Enable clipboard content sharing
     VBoxManage modifyvm $vmName --clipboard-mode bidirectional

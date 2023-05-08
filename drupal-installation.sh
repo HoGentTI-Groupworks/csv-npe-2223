@@ -26,7 +26,6 @@ check_output () {
 }
 
 install_reqs () {
-    sudo apt-get update
     sudo wget https://pastebin.com/raw/yBxPcvjM -O /home/osboxes/mysql_pubkey.asc &&
     gpg --dearmor mysql_pubkey.asc &&
     sudo cp mysql_pubkey.asc.gpg /etc/apt/trusted.gpg.d/ &&
@@ -104,13 +103,13 @@ install_drupal() {
     mkdir $web_dir/sites/default/files &&
     chmod 777 $web_dir/sites/default/files
 }
-download_modules() {
-    mkdir $web_dir"/modules"
+
+downloadModules() {
     cd $web_dir"/modules"
-    wget https://ftp.drupal.org/files/projects/entity-7.x-1.10.tar.gz
-    wget https://ftp.drupal.org/files/projects/restws-7.x-2.9.tar.gztar.gz
-    tar -xf entity-7.x-1.10.tar.gz
-    tar -xf restws-7.x-2.9.tar.gz
+    sudo wget https://ftp.drupal.org/files/projects/restws-7.x-2.7.tar.gz
+    sudo wget https://ftp.drupal.org/files/projects/entity-7.x-1.10.tar.gz
+    sudo tar -xf restws-7.x-2.7.tar.gz
+    sudo tar -xf entity-7.x-1.10.tar.gz
 }
 echo "SUCCESS: RUN $date " >> $log_file
 
@@ -142,7 +141,14 @@ sudo sed -i "s/$drupal_sql_pass/PasswordNotStoredInLogfile/g" $log_file
 echo
 echo "Installing Drupal 7.54..."
 install_drupal >> $log_file 2>&1
-download_modules >> $log_file 2>&1
 check_output $? "INSTALLING DRUPAL 7.54"
+echo
+echo "Downloading Drupal API Modules..."
+downloadModules >> $log_file 2>&1
+check_output $? "Downloaded DRUPAL API MODULES"
+echo
 echo "YOUR MYSQL PASSWORD IS: $mysql_pass"
 echo "YOUR DRUPAL MYSQL PASSWORD IS: $drupal_sql_pass"
+echo
+echo "Also created capture file"
+echo "Congrats, you made it! " > /home/osboxes/capture.txt

