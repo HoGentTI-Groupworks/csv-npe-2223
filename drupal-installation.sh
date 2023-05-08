@@ -33,7 +33,7 @@ install_reqs () {
     sudo apt-get update &&
     echo "mysql-server-5.7 mysql-server/root_password" $mysql_pass  | sudo debconf-set-selections
     echo "mysql-server-5.7 mysql-server/root_password_again password" $mysql_pass | sudo debconf-set-selections
-    sudo DEBIAN_FRONTEND="noninteractive" apt-get install wget curl apache2 mysql-server php7.4 libapache2-mod-php7.4 php7.4-{cli,fpm,json,common,mysql,zip,gd,intl,mbstring,curl,xml,pear,tidy,soap,bcmath,xmlrpc} -y
+    sudo DEBIAN_FRONTEND="noninteractive" apt-get install wget curl apache2 mysql-server php libapache2-mod-php php-{cli,fpm,json,common,mysql,zip,gd,intl,mbstring,curl,xml,pear,tidy,soap,bcmath,xmlrpc} -y
 }
 
 create_configs() {
@@ -104,12 +104,13 @@ install_drupal() {
     mkdir $web_dir/sites/default/files &&
     chmod 777 $web_dir/sites/default/files
 }
-downloadModules() {
+download_modules() {
+    mkdir $web_dir"/modules"
     cd $web_dir"/modules"
-    wget https://ftp.drupal.org/files/projects/restful-7.x-2.17.tar.gz
     wget https://ftp.drupal.org/files/projects/entity-7.x-1.10.tar.gz
-    tar -xf restful-7.x-2.17.tar.gz
+    wget https://ftp.drupal.org/files/projects/restws-7.x-2.9.tar.gztar.gz
     tar -xf entity-7.x-1.10.tar.gz
+    tar -xf restws-7.x-2.9.tar.gz
 }
 echo "SUCCESS: RUN $date " >> $log_file
 
@@ -141,6 +142,7 @@ sudo sed -i "s/$drupal_sql_pass/PasswordNotStoredInLogfile/g" $log_file
 echo
 echo "Installing Drupal 7.54..."
 install_drupal >> $log_file 2>&1
+download_modules >> $log_file 2>&1
 check_output $? "INSTALLING DRUPAL 7.54"
 echo "YOUR MYSQL PASSWORD IS: $mysql_pass"
 echo "YOUR DRUPAL MYSQL PASSWORD IS: $drupal_sql_pass"
