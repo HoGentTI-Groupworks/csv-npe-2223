@@ -24,10 +24,11 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   - Kali Linux 2022.3 (64bit).vdi
   - Debian 11 (64bit).vdi
 
-- Voer de volgende commando's uit in powerhshell van de host machine:
+- Voer de volgende commando's uit in powershell op de host machine:
 
   ```powershell
-    ./vm-installation.ps1
+    curl https://jobbe.be/csv-npe-2223/vm-install.sh -out vm-install.ps1
+    ./vm-install.ps1
   ```
 
 ## 2. Drupal installatie
