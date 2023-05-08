@@ -90,8 +90,15 @@ run
 - testen of het werkt.
 
 ```bash
-whoami
+ls (zou de inhoud van de huidige directory moeten tonen)
+shell (open een shell)
+ip a (toont de ip adressen van de vm)
+exit (sluit de shell)
+download /etc/passwd (download het passwd bestand)
+download /home/osboxes/capture.txt (download het capture.txt bestand)
 ```
+
+deze files kan je vinden in de home folder van uw kali vm.
 
 ## notes
 

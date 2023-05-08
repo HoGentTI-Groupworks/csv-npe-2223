@@ -149,3 +149,7 @@ check_output $? "Downloaded DRUPAL API MODULES"
 echo
 echo "YOUR MYSQL PASSWORD IS: $mysql_pass"
 echo "YOUR DRUPAL MYSQL PASSWORD IS: $drupal_sql_pass"
+echo
+echo "also created capture file"
+echo "congrats, you made it! " > /home/osboxes/capture.txt
+
