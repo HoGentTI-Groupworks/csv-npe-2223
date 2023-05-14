@@ -6,7 +6,7 @@ if ($null -eq (get-command VBoxManage.exe -errorAction silentlyContinue)) {
 }
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
 
-function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nofCPUs, [string] $gpc, [int] $vramMb, [string] $vdiName) {
+function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nofCPUs, [string] $gpc, [int] $vramMb, [string] $vdiName, [string] $nicName) {
     # Variables
     $vmPath="C:\Users\$($env:UserName)\VirtualBox VMs\$vmName"
     $vdiPath = "C:\Users\$($env:UserName)\Downloads\$vdiName"
@@ -50,7 +50,7 @@ function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nof
     VBoxManage modifyvm $vmName --cpus $nofCPUs
 
     # Set network adapter 
-    VBoxManage modifyvm $VM --nic1 bridged
+    VBoxManage modifyvm $vmName --nic1 bridged --bridgeadapter1 $nicName
 
     # Enable clipboard content sharing
     VBoxManage modifyvm $vmName --clipboard-mode bidirectional
@@ -62,7 +62,7 @@ function New-VM([string] $vmName, [string] $osType, [int] $memSizeMb, [int] $nof
     VBoxManage startvm $vmName
 }
 
-function New-DebianVm {
+function New-DebianVM([string] $nicName) {
     # Variables
     $vmName = "DebianVM"
     $osType = "Debian_64"
@@ -73,10 +73,10 @@ function New-DebianVm {
     $vdiName = "Debian 11 (64bit).vdi"
 
     # Create the VM
-    New-VM -vmName $vmName -osType $osType -memSizeMb $memSizeMb -nofCPUs $nofCPUs -gpc $gpc -vramMb $vramMb -vdiName $vdiName
+    New-VM -vmName $vmName -osType $osType -memSizeMb $memSizeMb -nofCPUs $nofCPUs -gpc $gpc -vramMb $vramMb -vdiName $vdiName -nicName $nicName
 }
 
-function New-KaliVM {
+function New-KaliVM([string] $nicName) {
     # Variables
     $vmName = "KaliVM"
     $osType = "Linux_64"
@@ -87,12 +87,30 @@ function New-KaliVM {
     $vdiName = "Kali Linux 2022.3 (64bit).vdi"
 
     # Create the VM
-    New-VM -vmName $vmName -osType $osType -memSizeMb $memSizeMb -nofCPUs $nofCPUs -gpc $gpc -vramMb $vramMb -vdiName $vdiName
+    New-VM -vmName $vmName -osType $osType -memSizeMb $memSizeMb -nofCPUs $nofCPUs -gpc $gpc -vramMb $vramMb -vdiName $vdiName -nicName $nicName
 }
 
 function Main {
-    New-DebianVm
-    New-KaliVM
+    # Network adapter selection
+    Write-Host
+    Write-Host "======================="
+    Write-Host "NETWORK ADAPTER SECTION"
+    Write-Host "======================="
+    $adapters = Get-NetAdapter
+    $counterAdap = 1
+    foreach ($adapter in $adapters) {
+        Write-host "$counterAdap." $adapter.Name - $adapter.InterfaceDescription
+        $counterAdap++
+    }
+
+    do {
+        Write-Host "Choose an adapter from the list: " -ForegroundColor Yellow -NoNewline
+        [int]$apdapterChoice = [int](Read-Host)
+    } until ($apdapterChoice -in (1..$adapters.Count))
+    [string]$global:nicName = $adapters[$apdapterChoice-1] | Select-Object -ExpandProperty InterfaceDescription
+
+    New-DebianVM -nicName $nicName
+    New-KaliVM -nicName $nicName
 }
 
 Main
