@@ -94,8 +94,6 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
   - `Entity API`
   - `RESTful Web Services`
 
-- Deactiveer de enp0s3 netwerk adapter en activeer de enp0s8 netwerk adapter in de instellingen van de Debian VM
-
 - Check het ip-adres van de Debian VM met het volgende commando:
 
   ```bash
@@ -110,8 +108,6 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
 
   - Username: `osboxes`
   - Password: `osboxes.org`
-
-- Deactiveer de enp0s3 netwerk adapter en activeer de enp0s8 netwerk adapter in de instellingen van de Kali VMs
 
 - Open een terminal en voer volgende commando's uit:
 
