@@ -15,7 +15,7 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
 
 ### Informatie
 
-- De VM's zijn geconfigureerd met een host-only netwerk adapter
+- De VM's zijn geconfigureerd met een bridged adapter
 - De installatie vereist een internet connectie
 
 ### Setup op host machine
