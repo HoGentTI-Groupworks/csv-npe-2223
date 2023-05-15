@@ -4,6 +4,13 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
 
 # Deployment manual
 
+## Table of Contents
+
+- [1. VM installaties](#1-vm-installaties)
+- [2. Drupal installatie](#2-drupal-installatie)
+- [3. Metesploit](#3-metesploit)
+- [4. Demo](#4-demo)
+
 ## 1. VM installaties
 
 ### Informatie
@@ -134,3 +141,7 @@ Cybersecurity &amp; Virtualisation - NPE Opdracht 2022-2023
     whoami
     ls
   ```
+
+### 4. Demo
+
+https://hogent.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=294bbaaf-9e7a-4abc-87e6-b0030132dae7
